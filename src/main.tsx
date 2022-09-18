@@ -6,24 +6,42 @@ import {
 	createRoutesFromElements,
 	Route,
 } from 'react-router-dom';
-import App from './App';
+import { Root } from './Root';
 import { ErrorPage } from './components/ErrorPage';
+import { Home } from './components/Home';
+import { Login, loginAction } from './components/Login';
 import './index.css';
-import { loader as rootLoader } from './routes/app';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { Auth } from './components/Auth';
+import { Polls } from './components/Polls';
+import { App } from './components/App';
+import { enableMapSet } from 'immer';
+
+enableMapSet();
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route
-			path="/"
-			element={<App />}
-			errorElement={<ErrorPage />}
-			loader={rootLoader}
-		></Route>
+		<Route path="/" element={<Root />} errorElement={<ErrorPage />}>
+			<Route element={<App />}>
+				<Route index element={<Home />}></Route>
+				<Route path="polls" element={<Polls />}></Route>
+			</Route>
+			<Route element={<Auth />}>
+				<Route
+					path="login"
+					element={<Login />}
+					action={loginAction}
+				></Route>
+			</Route>
+		</Route>
 	)
 );
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router}></RouterProvider>
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
 	</React.StrictMode>
 );
