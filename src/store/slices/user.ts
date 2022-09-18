@@ -4,14 +4,12 @@ import { IUser, users } from '../../models/user';
 
 export interface IUserState {
 	selected: Set<number>;
-	prevSelected: Set<number>;
 	logged: boolean;
 	username: string;
 }
 
 const initialState: IUserState = {
 	selected: Set(),
-	prevSelected: Set(),
 	logged: false,
 	username: '',
 };
@@ -49,19 +47,24 @@ export const userSlice = createSlice({
 
 			state.logged = !!hasUser;
 			state.username = username;
+
+			const cachedUserData = JSON.parse(localStorage.getItem(username)!);
+
+			if (cachedUserData) {
+				state.selected = Set(cachedUserData);
+			}
 		},
 
 		unlog: (state) => {
-			state.logged = false;
-		},
-		saveData: (state) => {
 			localStorage.setItem(
 				state.username,
-				JSON.stringify(fromJS(state).toJS())
+				JSON.stringify(state.selected.toJS())
 			);
+			state.logged = false;
+			state.selected = state.selected.clear();
+			state.username = '';
 		},
 	},
 });
 
-export const { addDish, clearSelected, saveData, log, unlog } =
-	userSlice.actions;
+export const { addDish, clearSelected, log, unlog } = userSlice.actions;

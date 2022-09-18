@@ -15,18 +15,18 @@ export const Polls: FC<PropsWithChildren> = () => {
 	const dispatch = useDispatch();
 
 	const logout = () => {
-		dispatch(clearSelected());
 		dispatch(unlog());
 	};
 
 	return (
-		<div className="">
-			<div className="">
+		<>
+			<div className="options">
+				<h2>Polls</h2>
 				<button onClick={logout}>Log out</button>
 			</div>
-			<h1>Polls</h1>
+
 			<div className="grid">
-				{Object.values(points).map(([dish, votes]) => {
+				{Object.values(points).map(([dish, points]) => {
 					return (
 						<div
 							className={
@@ -36,11 +36,11 @@ export const Polls: FC<PropsWithChildren> = () => {
 							}
 							key={dish.id!}
 						>
-							{dish.dishName}: {votes} votes
+							{dish.dishName}: {points} points
 						</div>
 					);
 				})}
 			</div>
-		</div>
+		</>
 	);
 };

@@ -31,11 +31,13 @@ export const Home: FC<PropsWithChildren> = () => {
 	};
 
 	return (
-		<div className="home">
-			<h1>
-				Vote for your favourite dish 🍔🍔🍕
-				<Link to="polls">check polls</Link>
-			</h1>
+		<>
+			<div className="options">
+				<h2>Vote for your favourite dish 🍔🍔🍕</h2>
+				<button onClick={castVote}>Submit</button>
+				<button onClick={resetSelected}>Reset</button>
+			</div>
+
 			<div className="grid">
 				{dishes.map((dish) => {
 					return (
@@ -69,10 +71,6 @@ export const Home: FC<PropsWithChildren> = () => {
 					);
 				})}
 			</div>
-			<div className="options">
-				<button onClick={castVote}>Submit</button>
-				<button onClick={resetSelected}>Reset</button>
-			</div>
-		</div>
+		</>
 	);
 };

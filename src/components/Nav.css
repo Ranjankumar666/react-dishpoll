@@ -1,0 +1,29 @@
+.nav {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+.nav__logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.nav__logo h1 {
+	padding: 0;
+}
+
+.nav__links {
+	list-style: none;
+	display: flex;
+	column-gap: 10px;
+}
+
+.nav__links a {
+	font-size: 20px;
+}
+
+.active {
+	text-decoration: underline;
+}

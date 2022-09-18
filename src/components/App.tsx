@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { RootState } from '../store/store';
 import './App.css';
+import { Nav } from './Nav';
 
 export const App: FC<PropsWithChildren> = () => {
 	const { logged } = useSelector<RootState, RootState['user']>(
@@ -17,7 +18,10 @@ export const App: FC<PropsWithChildren> = () => {
 
 	return (
 		<div className="App">
-			<Outlet></Outlet>
+			<Nav />
+			<div className="container">
+				<Outlet></Outlet>
+			</div>
 		</div>
 	);
 };
