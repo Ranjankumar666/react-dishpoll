@@ -85,6 +85,11 @@ input {
 	flex-flow: column wrap;
 }
 
+.error {
+	color: #fe5e41;
+	font-size: 20px;
+}
+
 #root {
 	width: 100vw;
 	margin: 0 auto;

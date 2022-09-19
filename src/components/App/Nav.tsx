@@ -1,16 +1,21 @@
 import { FC, PropsWithChildren } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { clearPrevVotes } from '../../store/slices/data';
 import { unlog } from '../../store/slices/user';
+import { RootState } from '../../store/store';
 import './Nav.css';
 
 export const Nav: FC<PropsWithChildren> = () => {
 	const activeClassName = 'active';
 
+	const { username } = useSelector<RootState, RootState['user']>((state) => state.user);
+
 	const dispatch = useDispatch();
 
 	const logout = () => {
 		dispatch(unlog());
+		dispatch(clearPrevVotes(username));
 	};
 
 	return (

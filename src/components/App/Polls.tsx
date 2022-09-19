@@ -1,7 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import './Home.css';
 
 export const Polls: FC<PropsWithChildren> = () => {
 	const { points, dishes } = useSelector<RootState, RootState['data']>(
@@ -20,7 +19,7 @@ export const Polls: FC<PropsWithChildren> = () => {
 				{points
 					.keySeq()
 					.toArray()
-					.map((id) => {
+					.map((id, idx) => {
 						const dish = dishes[id];
 						const pointsGiven = points.get(id);
 
@@ -33,7 +32,9 @@ export const Polls: FC<PropsWithChildren> = () => {
 								}
 								key={dish.id!}
 							>
-								{`${dish.dishName}: ${pointsGiven} points`}
+								{`${idx + 1}. ${
+									dish.dishName
+								}: ${pointsGiven} points`}
 							</div>
 						);
 					})}

@@ -1,11 +1,10 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { saveVotes } from '../../store/slices/data';
 import { addDish, clearSelected } from '../../store/slices/user';
 import { RootState } from '../../store/store';
 import { getIndex } from '../../utils/utils';
-import './Home.css';
 
 export const Home: FC<PropsWithChildren> = () => {
 	const { dishes } = useSelector<RootState, RootState['data']>(
