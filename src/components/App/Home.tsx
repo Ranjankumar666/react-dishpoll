@@ -16,14 +16,16 @@ export const Home: FC<PropsWithChildren> = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	// handler to select user choice
 	const selectDish = (id: number) => {
 		dispatch(addDish(id));
 	};
-
+	// handler to reset
 	const resetSelected = () => {
 		dispatch(clearSelected());
 	};
 
+	// handler when submit button is clicked
 	const castVote = () => {
 		dispatch(saveVotes(selected));
 		navigate('polls');
@@ -45,7 +47,7 @@ export const Home: FC<PropsWithChildren> = () => {
 						<div
 							className={
 								selected.has(dish.id!)
-									? 'card  pointer selected'
+									? 'card pointer selected'
 									: 'card pointer'
 							}
 							key={dish.id}

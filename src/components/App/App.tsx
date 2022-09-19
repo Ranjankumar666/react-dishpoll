@@ -17,7 +17,7 @@ export const App: FC<PropsWithChildren> = () => {
 	}, [logged]);
 
 	return (
-		<div className="App">
+		<div className="app">
 			<Nav />
 			<div className="container">
 				<Outlet></Outlet>

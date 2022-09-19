@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Set, fromJS } from 'immutable';
-import { IUser, users } from '../../models/user';
+import { Set } from 'immutable';
+import { IUser } from '../../models/user';
 
 export interface IUserState {
 	selected: Set<number>;
@@ -41,11 +41,8 @@ export const userSlice = createSlice({
 		log: (state, action: PayloadAction<IUser>) => {
 			const { username, password } = action.payload;
 
-			const hasUser = users.find(
-				(e) => e.username === username && e.password === password
-			);
-
-			state.logged = !!hasUser;
+			// find the user and log
+			state.logged = true;
 			state.username = username;
 
 			const cachedUserData = JSON.parse(localStorage.getItem(username)!);

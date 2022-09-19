@@ -1,12 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDish } from '../../models/dish';
-import dishJson from '../../data/db.json';
+// import dishJson from '../../data/db.json';
 import { Iterable, OrderedMap, Set } from 'immutable';
 
 const FIRST_RANK_POINTS = 30;
 const SECOND_RANK_POINTS = 20;
 const THIRD_RANK_POINTS = 10;
 const PREVVOTES_KEY_START = 'prevVotes_';
+const DISHES_DATA_URL =
+	'https://raw.githubusercontent.com/syook/react-dishpoll/main/db.json ';
 
 export interface IDataState {
 	dishes: {
@@ -21,18 +23,25 @@ const initialState: IDataState = {
 	points: OrderedMap(),
 };
 
+export const addDishes = createAsyncThunk('data/addDishes', async () => {
+	const res = await fetch(DISHES_DATA_URL);
+	const body = await res.json();
+
+	return body;
+});
+
 export const dataSlice = createSlice({
 	name: 'data',
 	initialState,
 	reducers: {
-		addDishes: (state) => {
-			for (let dish of dishJson as IDish[]) {
-				state.dishes[dish.id!] = dish;
-			}
-			for (let dish of Object.values(state.dishes)) {
-				state.points = state.points.set(dish.id!, 0);
-			}
-		},
+		// addDishes: (state) => {
+		// 	for (let dish of dishJson as IDish[]) {
+		// 		state.dishes[dish.id!] = dish;
+		// 	}
+		// 	for (let dish of Object.values(state.dishes)) {
+		// 		state.points = state.points.set(dish.id!, 0);
+		// 	}
+		// },
 		clearPrevVotes: (state, action: PayloadAction<string>) => {
 			const username = action.payload;
 
@@ -60,6 +69,7 @@ export const dataSlice = createSlice({
 				THIRD_RANK_POINTS,
 			];
 
+			// remove previous votes if exits
 			if (state.prevVotes.size > 0) {
 				for (let [i, id] of state.prevVotes.toArray().entries()) {
 					let update = state.points.get(id);
@@ -71,7 +81,7 @@ export const dataSlice = createSlice({
 						.toOrderedMap();
 				}
 			}
-
+			// update the new votes
 			for (let [i, id] of action.payload.toArray().entries()) {
 				let update = state.points.get(id);
 				update += points[i];
@@ -85,7 +95,21 @@ export const dataSlice = createSlice({
 			state.prevVotes = action.payload;
 		},
 	},
+
+	extraReducers(builder) {
+		builder.addCase(
+			addDishes.fulfilled,
+			(state, action: PayloadAction<IDish[]>) => {
+				const dishes = action.payload;
+				for (let dish of dishes as IDish[]) {
+					state.dishes[dish.id!] = dish;
+				}
+				for (let dish of Object.values(state.dishes)) {
+					state.points = state.points.set(dish.id!, 0);
+				}
+			}
+		);
+	},
 });
 
-export const { addDishes, saveVotes, clearPrevVotes, initPrevVotes } =
-	dataSlice.actions;
+export const { saveVotes, clearPrevVotes, initPrevVotes } = dataSlice.actions;

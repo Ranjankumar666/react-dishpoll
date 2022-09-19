@@ -15,10 +15,11 @@ const isSerializable = (value: any) =>
 const getEntries = (value: any) =>
 	Iterable.isIterable(value) ? value.entries() : Object.entries(value);
 
-const serializableMiddleware = createSerializableStateInvariantMiddleware({
-	isSerializable,
-	getEntries,
-});
+export const serializableMiddleware =
+	createSerializableStateInvariantMiddleware({
+		isSerializable,
+		getEntries,
+	});
 
 export const store = configureStore({
 	reducer: {
