@@ -85,6 +85,13 @@ input {
 	flex-flow: column wrap;
 }
 
+#root {
+	width: 100vw;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: center;
+}
+
 @media only screen and (max-width: 800px) {
 	:root {
 		font-size: 14px;

@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { RootState } from '../store/store';
+import { RootState } from '../../store/store';
 import './Auth.css';
 
 export const Auth: FC<PropsWithChildren> = () => {
@@ -15,7 +15,7 @@ export const Auth: FC<PropsWithChildren> = () => {
 		if (logged) navigate('/');
 	}, [logged]);
 	return (
-		<div className="container">
+		<div className="auth_container">
 			<Outlet></Outlet>
 		</div>
 	);

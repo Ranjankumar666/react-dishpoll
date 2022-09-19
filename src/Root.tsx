@@ -8,6 +8,10 @@ export const Root: FC<PropsWithChildren> = () => {
 
 	useEffect(() => {
 		dispatch(addDishes());
+
+		return () => {
+			localStorage.clear();
+		};
 	}, []);
 
 	return (

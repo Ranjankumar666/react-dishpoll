@@ -1,6 +1,6 @@
 import { ActionFunction, Form } from 'react-router-dom';
-import { store } from '../store/store';
-import { log } from '../store/slices/user';
+import { store } from '../../store/store';
+import { log } from '../../store/slices/user';
 
 export const loginAction: ActionFunction = async ({ request }) => {
 	const form = await request.formData();
@@ -15,7 +15,7 @@ export const loginAction: ActionFunction = async ({ request }) => {
 
 export const Login = () => {
 	return (
-		<div className="">
+		<>
 			<Form method="post">
 				<div className="form-control">
 					<label htmlFor="username">Username</label>
@@ -27,6 +27,6 @@ export const Login = () => {
 				</div>
 				<button type="submit">Login</button>
 			</Form>
-		</div>
+		</>
 	);
 };

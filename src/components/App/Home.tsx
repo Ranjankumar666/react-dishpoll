@@ -1,10 +1,10 @@
 import { FC, PropsWithChildren, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { saveVotes } from '../store/slices/data';
-import { addDish, clearSelected } from '../store/slices/user';
-import { RootState } from '../store/store';
-import { getIndex } from '../utils/utils';
+import { saveVotes } from '../../store/slices/data';
+import { addDish, clearSelected } from '../../store/slices/user';
+import { RootState } from '../../store/store';
+import { getIndex } from '../../utils/utils';
 import './Home.css';
 
 export const Home: FC<PropsWithChildren> = () => {
@@ -34,12 +34,14 @@ export const Home: FC<PropsWithChildren> = () => {
 		<>
 			<div className="options">
 				<h2>Vote for your favourite dish 🍔🍔🍕</h2>
-				<button onClick={castVote}>Submit</button>
+				<button onClick={castVote} disabled={selected.size !== 3}>
+					Submit
+				</button>
 				<button onClick={resetSelected}>Reset</button>
 			</div>
 
 			<div className="grid">
-				{dishes.map((dish) => {
+				{Object.values(dishes).map((dish) => {
 					return (
 						<div
 							className={

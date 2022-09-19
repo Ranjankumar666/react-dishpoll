@@ -8,14 +8,14 @@ import {
 } from 'react-router-dom';
 import { Root } from './Root';
 import { ErrorPage } from './components/ErrorPage';
-import { Home } from './components/Home';
-import { Login, loginAction } from './components/Login';
+import { Home } from './components/App/Home';
+import { Login, loginAction } from './components/Auth/Login';
 import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { Auth } from './components/Auth';
-import { Polls } from './components/Polls';
-import { App } from './components/App';
+import { Auth } from './components/Auth/Auth';
+import { Polls } from './components/App/Polls';
+import { App } from './components/App/App';
 import { enableMapSet } from 'immer';
 
 enableMapSet();
