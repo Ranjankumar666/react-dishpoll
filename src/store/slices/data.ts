@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IDish } from '../../models/dish';
-// import dishJson from '../../data/db.json';
 import { Iterable, OrderedMap, Set } from 'immutable';
 
 const FIRST_RANK_POINTS = 30;
@@ -34,17 +33,10 @@ export const dataSlice = createSlice({
 	name: 'data',
 	initialState,
 	reducers: {
-		// addDishes: (state) => {
-		// 	for (let dish of dishJson as IDish[]) {
-		// 		state.dishes[dish.id!] = dish;
-		// 	}
-		// 	for (let dish of Object.values(state.dishes)) {
-		// 		state.points = state.points.set(dish.id!, 0);
-		// 	}
-		// },
 		clearPrevVotes: (state, action: PayloadAction<string>) => {
 			const username = action.payload;
 
+			// cache the prevVotes
 			localStorage.setItem(
 				PREVVOTES_KEY_START + username,
 				JSON.stringify(state.prevVotes.toArray())
@@ -101,9 +93,11 @@ export const dataSlice = createSlice({
 			addDishes.fulfilled,
 			(state, action: PayloadAction<IDish[]>) => {
 				const dishes = action.payload;
+				// add to dishes
 				for (let dish of dishes as IDish[]) {
 					state.dishes[dish.id!] = dish;
 				}
+				// initialize the votes
 				for (let dish of Object.values(state.dishes)) {
 					state.points = state.points.set(dish.id!, 0);
 				}

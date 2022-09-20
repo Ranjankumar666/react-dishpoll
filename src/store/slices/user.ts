@@ -47,6 +47,7 @@ export const userSlice = createSlice({
 			state.logged = true;
 			state.username = username;
 
+			//get the cached data
 			const cachedUserData = JSON.parse(localStorage.getItem(username)!);
 
 			if (cachedUserData) {
@@ -55,6 +56,7 @@ export const userSlice = createSlice({
 		},
 
 		unlog: (state) => {
+			//cache the user choice to reuse it when he relogins
 			localStorage.setItem(
 				state.username,
 				JSON.stringify(state.selected.toJS())

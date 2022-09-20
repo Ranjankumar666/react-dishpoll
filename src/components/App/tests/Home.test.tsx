@@ -31,26 +31,26 @@ const router = createMemoryRouter(
 	)
 );
 
+const dummyDish1 = getDummmyDish(1);
+const dummyDish2 = getDummmyDish(2);
+const dummyDish3 = getDummmyDish(3);
+
+const preloadedState = {
+	user: {
+		selected: Set(),
+	},
+	data: {
+		dishes: {
+			1: dummyDish1,
+			2: dummyDish2,
+			3: dummyDish3,
+		},
+		prevVotes: Set(),
+		points: OrderedMap(),
+	},
+};
+
 describe('Test for Home component', () => {
-	const dummyDish1 = getDummmyDish(1);
-	const dummyDish2 = getDummmyDish(2);
-	const dummyDish3 = getDummmyDish(3);
-
-	const preloadedState = {
-		user: {
-			selected: Set(),
-		},
-		data: {
-			dishes: {
-				1: dummyDish1,
-				2: dummyDish2,
-				3: dummyDish3,
-			},
-			prevVotes: Set(),
-			points: OrderedMap(),
-		},
-	};
-
 	it('should render dishes properly', async () => {
 		renderWithProvider(<RouterProvider router={router} />, {
 			preloadedState,
