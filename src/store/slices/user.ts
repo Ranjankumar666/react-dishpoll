@@ -21,8 +21,10 @@ export const userSlice = createSlice({
 			const id = action.payload;
 
 			if (state.selected.has(id)) {
-				state.selected = state.selected.delete(id);
-				// state.selected.add(id);
+				//delete if previously selected
+				state.selected = state.selected
+					.filterNot((x) => x === id)
+					.toSet();
 			} else {
 				const update = state.selected.toArray();
 
